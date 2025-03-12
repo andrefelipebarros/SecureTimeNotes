@@ -4,6 +4,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.beans.factory.annotation.Autowired;
 import securetimenotes.andrefelipebarros.securetimenotes.model.user.User;
+import securetimenotes.andrefelipebarros.securetimenotes.model.user.body.AuthenticationDTO;
+import securetimenotes.andrefelipebarros.securetimenotes.model.user.body.LoginResponseDTO;
+import securetimenotes.andrefelipebarros.securetimenotes.model.user.body.RegisterDTO;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -14,9 +17,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import jakarta.validation.Valid;
 import securetimenotes.andrefelipebarros.securetimenotes.infra.security.TokenService;
-import securetimenotes.andrefelipebarros.securetimenotes.model.user.AuthenticationDTO;
-import securetimenotes.andrefelipebarros.securetimenotes.model.user.LoginResponseDTO;
-import securetimenotes.andrefelipebarros.securetimenotes.model.user.RegisterDTO;
 import securetimenotes.andrefelipebarros.securetimenotes.repository.UserRepository;
 
 @RestController
