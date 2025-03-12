@@ -23,8 +23,8 @@ import java.util.List;
 @Data
 @Setter
 @Getter
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Table(name= "users")
 @Entity(name = "users")
 @EqualsAndHashCode(of = "id")
@@ -32,13 +32,17 @@ public class User implements UserDetails {
     
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    private Long id;
-
+    private String id;
     private String username;
-
     private String password;
-
     private UserRole role;
+
+    //Criar constructor com 3 parâmetros(retirando id):
+    public User(String username, String password, UserRole role){
+        this.username = username;
+        this.password = password;
+        this.role = role;
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

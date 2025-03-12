@@ -7,6 +7,6 @@ import securetimenotes.andrefelipebarros.securetimenotes.model.user.User;
 
 
 
-public interface UserRepository extends JpaRepository<User, Long> {
+public interface UserRepository extends JpaRepository<User, String> {
     UserDetails findByUsername(String username);
 }
