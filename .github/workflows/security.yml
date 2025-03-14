@@ -2,7 +2,7 @@ name: Security Scan
 
 on:
   schedule:
-    - cron: '0 0 * * 1'  # Roda toda segunda-feira à meia-noite
+    - cron: '0 0 * * 1' # Roda toda segunda-feira à meia-noite
   workflow_dispatch:
 
 jobs:
@@ -12,7 +12,7 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
-      
+
     - name: Set up JDK 17
       uses: actions/setup-java@v4
       with:
@@ -24,7 +24,8 @@ jobs:
 
     - name: Run the application
       run: |
-        nohup mvn spring-boot:run & sleep 30
+        nohup mvn spring-boot:run &
+        sleep 30
 
     - name: Run OWASP Dependency Check
       uses: dependency-check/Dependency-Check_Action@main
@@ -50,10 +51,4 @@ jobs:
 
     - name: Run OWASP ZAP Scan
       run: |
-        zap-baseline.py -t http://localhost:8081
-
-    - name: Upload ZAP Report
-      uses: actions/upload-artifact@v3
-      with:
-        name: zap-report
-        path: zap_report.html
+        zap-baseline.py -t http://localhost:8080
