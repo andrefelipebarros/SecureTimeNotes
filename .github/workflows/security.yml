@@ -3,7 +3,7 @@ name: Security Scan
 on:
   schedule:
     - cron: '0 0 * * 1'  # Roda toda segunda-feira à meia-noite
-  workflow_dispatch:  # Permite rodar manualmente
+  workflow_dispatch:
 
 jobs:
   security-scan:
@@ -24,8 +24,7 @@ jobs:
 
     - name: Run the application
       run: |
-        nohup mvn spring-boot:run &  # Rodando a aplicação em segundo plano
-        sleep 30  # Dá tempo para o servidor inicializar
+        nohup mvn spring-boot:run & sleep 30
 
     - name: Run OWASP Dependency Check
       uses: dependency-check/Dependency-Check_Action@main
@@ -36,7 +35,7 @@ jobs:
         out: "reports"
 
     - name: Upload dependency check report
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v2
       with:
         name: dependency-check-report
         path: reports
