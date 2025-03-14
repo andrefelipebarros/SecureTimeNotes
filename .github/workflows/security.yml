@@ -3,51 +3,64 @@ name: Security Scan
 on:
   schedule:
     - cron: '0 0 * * 1'  # Roda toda segunda-feira à meia-noite
-  workflow_dispatch:
+  workflow_dispatch:  # Permite rodar manualmente
 
 jobs:
-  dependency-check:
-    name: Check Vulnerabilities
+  security-scan:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Set up JDK 17
+      uses: actions/setup-java@v4
+      with:
+        java-version: '17'
+        distribution: 'temurin'
 
-      - name: Set up JDK 17
-        uses: actions/setup-java@v3
-        with:
-          distribution: 'temurin'
-          java-version: '17'
+    - name: Build with Maven
+      run: mvn clean install -DskipTests
 
-      - name: Run OWASP Dependency Check
-        uses: dependency-check/Dependency-Check_Action@main
-        with:
-          project: "MyJavaProject"
-          path: "pom.xml"
-          format: "HTML, JSON"
-          out: "reports"
+    - name: Run the application
+      run: |
+        nohup mvn spring-boot:run &  # Rodando a aplicação em segundo plano
+        sleep 30  # Dá tempo para o servidor inicializar
 
-      - name: Upload dependency check report
-        uses: actions/upload-artifact@v3
-        with:
-          name: dependency-check-report
-          path: reports
+    - name: Run OWASP Dependency Check
+      uses: dependency-check/Dependency-Check_Action@main
+      with:
+        project: "MyJavaProject"
+        path: "pom.xml"
+        format: "HTML, JSON"
+        out: "reports"
 
-  trivy-scan:
-    name: Scan with Trivy
-    runs-on: ubuntu-latest
+    - name: Upload dependency check report
+      uses: actions/upload-artifact@v3
+      with:
+        name: dependency-check-report
+        path: reports
 
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+    - name: Install Trivy
+      run: |
+        sudo apt-get install wget -y
+        wget https://github.com/aquasecurity/trivy/releases/download/v0.46.0/trivy_0.46.0_Linux-64bit.tar.gz
+        tar -xzf trivy_0.46.0_Linux-64bit.tar.gz
+        sudo mv trivy /usr/local/bin/
 
-      - name: Install Trivy
-        run: |
-          sudo apt-get install wget -y
-          wget https://github.com/aquasecurity/trivy/releases/download/v0.46.0/trivy_0.46.0_Linux-64bit.tar.gz  # Link atualizado para a versão correta
-          tar -xzf trivy_0.46.0_Linux-64bit.tar.gz
-          sudo mv trivy /usr/local/bin/
+    - name: Run Trivy on project
+      run: trivy fs --exit-code 1 --severity HIGH,CRITICAL .
 
-      - name: Run Trivy on project
-        run: trivy fs --exit-code 1 --severity HIGH,CRITICAL .
+    - name: Install OWASP ZAP
+      run: |
+        sudo apt-get install zaproxy
+
+    - name: Run OWASP ZAP Scan
+      run: |
+        zap-baseline.py -t http://localhost:8081
+
+    - name: Upload ZAP Report
+      uses: actions/upload-artifact@v3
+      with:
+        name: zap-report
+        path: zap_report.html
