@@ -35,6 +35,8 @@ jobs:
         path: "securetimenotes/pom.xml"
         format: "HTML, JSON"
         out: "reports"
+      env:
+        JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.14-7/x64
 
     - name: Install Trivy
       run: |
