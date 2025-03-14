@@ -34,12 +34,6 @@ jobs:
         format: "HTML, JSON"
         out: "reports"
 
-    - name: Upload dependency check report
-      uses: actions/upload-artifact@v2
-      with:
-        name: dependency-check-report
-        path: reports
-
     - name: Install Trivy
       run: |
         sudo apt-get install wget -y
