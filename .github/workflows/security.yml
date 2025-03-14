@@ -2,7 +2,7 @@ name: Security Scan
 
 on:
   schedule:
-    - cron: '0 0 * * 1' #Roda toda segunda à meia-noite.
+    - cron: '0 0 * * 1'  # Roda toda segunda-feira à meia-noite
   workflow_dispatch:
 
 jobs:
@@ -45,7 +45,7 @@ jobs:
       - name: Install Trivy
         run: |
           sudo apt-get install wget -y
-          wget https://github.com/aquasecurity/trivy/releases/latest/download/trivy_0.46.0_Linux-64bit.tar.gz
+          wget https://github.com/aquasecurity/trivy/releases/download/v0.46.0/trivy_0.46.0_Linux-64bit.tar.gz  # Link atualizado para a versão correta
           tar -xzf trivy_0.46.0_Linux-64bit.tar.gz
           sudo mv trivy /usr/local/bin/
 
