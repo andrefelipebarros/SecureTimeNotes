@@ -1,5 +1,7 @@
 package securetimenotes.andrefelipebarros.securetimenotes.model.user;
 
+import securetimenotes.andrefelipebarros.securetimenotes.model.note.Note;
+
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.GrantedAuthority;
@@ -9,7 +11,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import jakarta.persistence.Id;
-
+import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -36,6 +38,10 @@ public class User implements UserDetails {
     private String username;
     private String password;
     private UserRole role;
+
+    // Relacionamento OneToMany com Note
+    @OneToMany(mappedBy = "user")
+    private List<Note> notes;
 
     //Criar constructor com 3 parâmetros(retirando id):
     public User(String username, String password, UserRole role){
