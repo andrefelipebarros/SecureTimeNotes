@@ -68,7 +68,7 @@ Esses endpoints são protegidos por **Spring Security** 🔐 e requerem um token
 
 Aqui está o diagrama do **SchemaDB** para ilustrar a estrutura do banco de dados:
 
-![SchemaDB](assets/diagramaDB.png)
+![SchemaDB](assets/diagramDB.png)
 
 
 ## Contribuindo 🤝
