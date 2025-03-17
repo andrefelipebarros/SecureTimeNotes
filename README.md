@@ -64,6 +64,13 @@ Antes de começar, tenha o seguinte instalado:
 
 Esses endpoints são protegidos por **Spring Security** 🔐 e requerem um token JWT válido para acessar.
 
+## Diagramas 📊
+
+Aqui está o diagrama do **SchemaDB** para ilustrar a estrutura do banco de dados:
+
+![SchemaDB](assets/diagramDB.png)
+
+
 ## Contribuindo 🤝
 
 1. Faça um fork deste repositório 🍴.
