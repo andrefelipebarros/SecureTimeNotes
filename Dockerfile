@@ -5,7 +5,7 @@ RUN apt-get install openjdk-17-jdk -y
 
 COPY ./securetimenotes /app
 
-RUN apt-get isntall maven -y
+RUN apt-get install maven -y
 
 WORKDIR /app
 
