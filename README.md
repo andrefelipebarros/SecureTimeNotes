@@ -51,16 +51,17 @@ Antes de começar, tenha o seguinte instalado:
    mvn spring-boot:run
    ```
 
-5. O backend estará rodando localmente na porta `8080` por padrão. 🌐
+5. O backend estará rodando localmente na porta `8080` por padrão. 🌐 
+(⚠OBS: Alterei no properties para porta 8081)
 
 ## Rotas e Endpoints 🚏
 
-- **POST** `/login` 🔑: Realiza o login do usuário e retorna um token JWT.
-- **POST** `/register` 🖊️: Registra um novo usuário.
-- **GET** `/notes` 📋: Retorna todas as notas do usuário autenticado.
-- **POST** `/notes` ✍️: Cria uma nova nota.
-- **PUT** `/notes/{id}` 🔄: Atualiza uma nota existente.
-- **DELETE** `/notes/{id}` 🗑️: Deleta uma nota.
+- **POST** `auth/login` 🔑: Realiza o login do usuário e retorna um token JWT.
+- **POST** `auth/register` 🖊️: Registra um novo usuário.
+- **GET** `user/notes` 📋: Retorna todas as notas do usuário autenticado.
+- **POST** `user/notes` ✍️: Cria uma nova nota.
+- **PUT** `user/notes/{id}` 🔄: Atualiza uma nota existente.
+- **DELETE** `user/notes/{id}` 🗑️: Deleta uma nota.
 
 Esses endpoints são protegidos por **Spring Security** 🔐 e requerem um token JWT válido para acessar.
 
