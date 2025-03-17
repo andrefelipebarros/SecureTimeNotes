@@ -15,6 +15,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 
 @RestController
@@ -34,14 +35,8 @@ public class NotesController {
 
     @PostMapping("/notes")
     @PreAuthorize("hasRole('USER')")
-    public void postNotes(@AuthenticationPrincipal User user) {
-        Note note = new Note();
-
-        note.setContent("Conteúdo da nota");
+    public void postNotes(@AuthenticationPrincipal User user, @RequestBody Note note) {
         note.setUser(user);
-
         noteRepository.save(note);
     }
-
-    
 }
