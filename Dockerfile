@@ -15,6 +15,6 @@ FROM openjdk:17-jdk-slim
 
 EXPOSE 8081
 
-COPY --from=build /app/target/securetimenotes-0.0.1-SNAPSHOT app.jar
+COPY --from=build /app/target/*.jar app.jar
 
 ENTRYPOINT [ "java", "-jar", "app.jar" ]
