@@ -11,6 +11,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import jakarta.persistence.Column;
 import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -35,6 +37,7 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
+    @Column(unique=true)
     private String username;
     private String password;
     private UserRole role;
