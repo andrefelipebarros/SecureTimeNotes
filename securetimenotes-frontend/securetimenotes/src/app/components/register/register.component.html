@@ -1,0 +1,29 @@
+<div class="register-container">
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+    <div>
+        <label for="login">Login (E-mail)</label>
+        <input id="login" formControlName="login" type="email" />
+        <div *ngIf="registerForm.get('login')?.invalid && registerForm.get('login')?.touched">
+        E-mail inválido.
+        </div>
+    </div>
+
+    <div>
+        <label for="password">Senha</label>
+        <input id="password" formControlName="password" type="password" />
+        <div *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched">
+            Senha deve ter pelo menos 8 caracteres, 1 letra maiúscula, 1 número e 1 caractere especial.
+        </div>
+    </div>
+
+    <div>
+        <label for="confirmPassword">Confirmar Senha</label>
+        <input id="confirmPassword" formControlName="confirmPassword" type="password" />
+        <div *ngIf="registerForm.hasError('mismatch') && registerForm.get('confirmPassword')?.touched">
+        As senhas não correspondem.
+        </div>
+    </div>
+
+    <button type="submit" [disabled]="registerForm.invalid || !validatePassword()">Registrar</button>
+    </form>
+</div>
