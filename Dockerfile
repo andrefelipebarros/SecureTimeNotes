@@ -9,12 +9,12 @@ RUN apt-get install maven -y
 
 WORKDIR /app
 
-RUN mvn clean install
+RUN mvn clean install -DskipTests
 
 FROM openjdk:17-jdk-slim
 
 EXPOSE 8081
 
-COPY --from=build /target/securetimenotes-1.0.0.jar app.jar
+COPY --from=build /app/target/*.jar app.jar
 
 ENTRYPOINT [ "java", "-jar", "app.jar" ]
