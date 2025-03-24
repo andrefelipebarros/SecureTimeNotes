@@ -2,6 +2,9 @@ package securetimenotes.andrefelipebarros.securetimenotes.controllers;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import securetimenotes.andrefelipebarros.securetimenotes.model.user.User;
 import securetimenotes.andrefelipebarros.securetimenotes.model.user.UserRole;
@@ -40,6 +43,15 @@ public class AuthenticationController {
         if(repository.findByUsername(data.username()) != null) return ResponseEntity
         .badRequest().body("Username already taken.");
 
+        String validPass = validatePassword(data.password());
+
+        if (validPass.equalsIgnoreCase(null)) {
+            System.out.println("Valid password!");
+        } else{
+            return ResponseEntity.ok("Password is invalid: must contain at least 8 characters, 1 uppercase letter, 1 number, and 1 special character");
+        }
+        
+
         String encryptedPassword = new BCryptPasswordEncoder().encode(data.password());
         UserRole role = (data.role() == null) ? UserRole.USER : data.role();
 
@@ -58,4 +70,25 @@ public class AuthenticationController {
         return ResponseEntity.ok(new LoginResponseDTO(token));
     }
 
+
+    private String validatePassword(String password) {
+        Map<String, String> rules = Map.of(
+            ".*[A-Z].*", "one uppercase letter.",
+            ".*[a-z].*", "one lowercase letter.",
+            ".*\\d.*", "one digit",
+            ".*[!@#$%^&*()].*", "one special character (!@#$%^&*())."
+        );
+    
+        if (password == null || password.isEmpty())
+            return "Password cannot be empty.";
+        if (password.length() < 8)
+            return "Password must be at least 8 characters long.";
+    
+        for (var entry : rules.entrySet()) {
+            if (!password.matches(entry.getKey()))
+                return "Password must contain at least " + entry.getValue();
+        }
+    
+        return null;
+    }
 }
