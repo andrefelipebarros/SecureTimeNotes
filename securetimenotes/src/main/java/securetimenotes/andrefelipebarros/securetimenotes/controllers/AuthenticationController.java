@@ -45,12 +45,11 @@ public class AuthenticationController {
 
         String validPass = validatePassword(data.password());
 
-        if (validPass.equalsIgnoreCase(null)) {
+        if (validPass == null) {
             System.out.println("Valid password!");
         } else{
-            return ResponseEntity.ok("Password is invalid: must contain at least 8 characters, 1 uppercase letter, 1 number, and 1 special character");
+            return ResponseEntity.badRequest().body("Password is invalid: must contain at least 8 characters, 1 uppercase letter, 1 number, and 1 special character");
         }
-        
 
         String encryptedPassword = new BCryptPasswordEncoder().encode(data.password());
         UserRole role = (data.role() == null) ? UserRole.USER : data.role();
