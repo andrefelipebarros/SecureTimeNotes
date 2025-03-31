@@ -1,1 +1,14 @@
-<p>home works! Hello!!</p>
+<div class="home-container">
+    <h2>{{ title }}</h2>
+
+    <ng-container *ngIf="!isAuthenticated(); else loggedInTemplate">
+        <button [routerLink]="'/register'">Register</button>
+        <br>
+        <button [routerLink]="'/login'">Login</button>
+    </ng-container>
+
+    <ng-template #loggedInTemplate>
+        <p>Você está logado!</p>
+        <button (click)="logout()">Logout</button>
+    </ng-template>
+</div>
