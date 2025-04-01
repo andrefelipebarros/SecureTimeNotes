@@ -1,0 +1,46 @@
+.home-container {
+    text-align: center;
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 20px;
+    margin-top: 200px;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    font-family: 'Courier New', Courier, monospace;
+    color: #333;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+h2::after {
+    content: "Notes";
+    color: #00aeff;
+    font-weight: bold;
+}
+
+button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+p {
+    font-size: 16px;
+    color: #555;
+}

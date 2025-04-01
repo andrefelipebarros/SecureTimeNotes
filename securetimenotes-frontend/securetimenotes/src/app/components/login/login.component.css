@@ -1,0 +1,67 @@
+.login-container {
+    text-align: center;
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 20px;
+    margin-top: 200px;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.login-container form div {
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+.login-container label {
+    display: inline;
+    margin-bottom: 5px;
+}
+
+.login-container label::after {
+    content: "*";
+    color: #00aeff;
+    margin-left: 2px;
+}
+
+.login-container input[type="email"],
+.login-container input[type="password"] {
+    width: calc(100% - 12px);
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.login-container input[type="email"]:focus,
+.login-container input[type="password"]:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.login-container button[type="submit"] {
+    width: 100%;
+    padding: 12px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size:16px;
+}
+
+.login-container button[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+.login-container button[type="submit"]:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+}
+
+.login-container div div {
+    color: red;
+    font-size: 0.8em;
+    margin-top: 5px;
+}
