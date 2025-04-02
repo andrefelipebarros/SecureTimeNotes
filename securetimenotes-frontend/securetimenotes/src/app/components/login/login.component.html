@@ -1,6 +1,7 @@
 <div class="login-container">
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
     <div>
+      <h2>LOGIN</h2>
         <label for="login">Login (E-mail)</label>
         <input id="login" formControlName="login" type="email" />
       <div *ngIf="loginForm.get('login')?.invalid && loginForm.get('login')?.touched">

@@ -7,7 +7,7 @@ import { catchError, tap } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:8081/';
+  private apiUrl = 'https://securetimenotes.onrender.com/';
 
   constructor(private http: HttpClient) {}
 

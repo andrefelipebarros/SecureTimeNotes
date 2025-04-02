@@ -1,3 +1,8 @@
+h2 {
+  color: #00aeff;
+  font-family: 'Courier New', Courier, monospace;
+}
+
 .register-container {
   text-align: center;
   max-width: 400px;
@@ -43,7 +48,7 @@
 .register-container button[type="submit"] {
   width: 100%;
   padding: 12px;
-  background-color: #28a745;
+  background-color: #007bff;
   color: white;
   border: none;
   border-radius: 5px;
@@ -52,7 +57,7 @@
 }
 
 .register-container button[type="submit"]:hover {
-  background-color: #218838;
+  background-color: #0056b3;
 }
 
 .register-container button[type="submit"]:disabled {

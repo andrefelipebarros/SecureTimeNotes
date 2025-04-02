@@ -2,9 +2,9 @@
     <h2>SecureTime</h2>
 
     <ng-container *ngIf="!isAuthenticated(); else loggedInTemplate">
-        <button [routerLink]="'/register'">Register</button>
-        <br>
         <button [routerLink]="'/login'">Login</button>
+        <br>
+        <button [routerLink]="'/register'">Register</button>
     </ng-container>
 
     <ng-template #loggedInTemplate>
