@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../service/auth.service';
 import { HttpClientModule } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -15,7 +16,7 @@ export class RegisterComponent {
 
   registerForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private apiService: AuthService) {
+  constructor(private fb: FormBuilder, private apiService: AuthService, private router: Router) {
     this.registerForm = this.fb.group({
       login: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(8)]],
@@ -43,16 +44,17 @@ export class RegisterComponent {
 
   onSubmit(): void {
     if (this.registerForm.valid && this.validatePassword()) {
-      const { login, password } = this.registerForm.value;  // Extrai login (username) e password
-
+      // Extrai login (username) e password
+      const { login, password } = this.registerForm.value;
       const requestPayload = {
-        username: login,  // 'login' será usado como 'username'
+        username: login,
         password: password
       };
 
-      this.apiService.post('auth/register', requestPayload).subscribe({
+      this.apiService.post('auth/register', requestPayload, 'text').subscribe({
         next: (response) => {
           console.log('Usuário registrado com sucesso', response);
+          this.router.navigate(['/login']);
         },
         error: (error) => {
           console.error('Erro ao registrar usuário', error);

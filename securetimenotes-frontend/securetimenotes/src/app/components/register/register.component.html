@@ -1,7 +1,7 @@
 <div class="register-container">
     <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
     <div>
-        <label for="login">Login (E-mail)</label>
+        <label for="login">E-mail</label>
         <input id="login" formControlName="login" type="email" />
         <div *ngIf="registerForm.get('login')?.invalid && registerForm.get('login')?.touched">
         E-mail inválido.

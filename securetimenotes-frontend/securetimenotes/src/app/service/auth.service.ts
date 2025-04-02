@@ -22,9 +22,11 @@ export class AuthService {
     return headers;
   }
 
-  post<T>(endpoint: string, data: any): Observable<T> {
-    return this.http.post<T>(`${this.apiUrl}${endpoint}`, data, { headers: this.getHeaders() })
-      .pipe(catchError(this.handleError));
+  post<T>(endpoint: string, data: any, responseType: 'json' | 'text' = 'json'): Observable<T | string> {
+    return this.http.post<T | string>(`${this.apiUrl}${endpoint}`, data, {
+      headers: this.getHeaders(),
+      responseType: responseType as 'json'
+    }).pipe(catchError(this.handleError));
   }
 
   login(credentials: { username: string; password: string }): Observable<any> {
