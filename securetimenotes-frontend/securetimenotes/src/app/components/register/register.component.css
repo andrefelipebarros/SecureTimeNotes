@@ -70,3 +70,42 @@ h2 {
   font-size: 0.8em;
   margin-top: 5px;
 }
+
+.checkbox-container {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font-size: 14px;
+  user-select: none;
+}
+
+.checkbox-container input {
+  display: none;
+}
+
+.checkbox-container .checkmark {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 2px solid #007bff;
+  display: inline-block;
+  position: relative;
+  margin-right: 10px;
+}
+
+.checkbox-container input:checked + .checkmark {
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+.checkbox-container input:checked + .checkmark::after {
+  content: "";
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: white;
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}

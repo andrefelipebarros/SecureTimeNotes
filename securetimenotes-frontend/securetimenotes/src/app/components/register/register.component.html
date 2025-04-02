@@ -25,6 +25,17 @@
         </div>
     </div>
 
+    <div>
+        <label class="checkbox-container">
+            <input type="checkbox" formControlName="terms" />
+            <span class="checkmark"></span> Eu aceito os <a href="#">termos e condições</a>.
+        </label>
+        <div *ngIf="registerForm.get('terms')?.invalid && registerForm.get('terms')?.touched">
+            Você deve aceitar os termos para continuar.
+        </div>
+    </div>
+
     <button type="submit" [disabled]="registerForm.invalid || !validatePassword()">Registrar</button>
+
     </form>
 </div>
