@@ -1,7 +1,6 @@
 [build]
-  base = "securetimenotes-frontend/securetimenotes"
-  command = "npm install && ng build --configuration=production --base-href /"
-  publish = "dist/securetimenotes"
+  command = "cd securetimenotes-frontend/securetimenotes && npm install && ng build --configuration=production --base-href /"
+  publish = "../../securetimenotes/browser"
 
 [[redirects]]
   from = "/*"
