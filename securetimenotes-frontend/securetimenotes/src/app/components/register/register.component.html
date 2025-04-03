@@ -11,9 +11,25 @@
 
     <div>
         <label for="password">Senha</label>
-        <input id="password" formControlName="password" type="password" />
+        <input id="password" formControlName="password" type="password" (input)="onPasswordChange()" />
         <div *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched">
-            Senha deve ter pelo menos 8 caracteres, 1 letra maiúscula, 1 número e 1 caractere especial.
+            Senha invalida
+        </div>
+
+    <ul class="password-requirements">
+        <li [class.met]="passwordRequirements.length">Mínimo de 8 caracteres</li>
+        <li [class.met]="passwordRequirements.uppercase">Uma letra maiúscula</li>
+        <li [class.met]="passwordRequirements.lowercase">Uma letra minúscula</li>
+        <li [class.met]="passwordRequirements.number">Um número</li>
+        <li [class.met]="passwordRequirements.specialChar">Um caractere especial</li>
+    </ul>
+
+    <div class="password-strength">
+        <div class="strength-bar" 
+                [style.width]="passwordStrengthPercentage + '%'" 
+                [ngClass]="passwordStrength">
+        </div>
+        <span>{{ passwordStrength }}</span>
         </div>
     </div>
 

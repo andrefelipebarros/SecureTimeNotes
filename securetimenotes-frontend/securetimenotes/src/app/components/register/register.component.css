@@ -109,3 +109,55 @@ h2 {
   left: 50%;
   transform: translate(-50%, -50%);
 }
+
+.password-requirements {
+  list-style-type: none;
+  padding: 0;
+  margin: 10px 0;
+}
+
+.password-requirements li {
+  color: #e0e0e0;
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+
+.password-requirements li.met {
+  color: #66cc66;
+}
+
+.password-strength {
+  margin-top: 10px;
+  height: 8px;
+  border-radius: 4px;
+  background-color: #e0e0e0;
+  position: relative;
+}
+
+.strength-bar {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.3s ease;
+}
+
+.strength-bar.fraca {
+  background-color: #ff4d4d;
+}
+
+.strength-bar.media {
+  background-color: #fff266;
+}
+
+.strength-bar.forte {
+  background-color: #66cc66;
+}
+
+.password-strength span {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 12px;
+  color: #fff;
+}
+

@@ -15,6 +15,17 @@ import { Router } from '@angular/router';
 export class RegisterComponent {
 
   registerForm: FormGroup;
+  passwordStrength: string = '';  // Armazenar o estado da força da senha
+  passwordStrengthPercentage: number = 0;  // Armazenar a porcentagem da força da senha
+
+  // Armazenar o status dos requisitos de senha
+  passwordRequirements = {
+    length: false,
+    uppercase: false,
+    lowercase: false,
+    number: false,
+    specialChar: false
+  };
 
   constructor(private fb: FormBuilder, private apiService: AuthService, private router: Router) {
     this.registerForm = this.fb.group({
@@ -35,22 +46,48 @@ export class RegisterComponent {
     return null;
   }
 
-  // Validação personalizada para a senha
-  validatePassword(): boolean {
+  // Função para calcular a força da senha
+  calculatePasswordStrength(password: string): void {
+    // Atualizar os requisitos da senha
+    this.passwordRequirements.length = password.length >= 8;
+    this.passwordRequirements.uppercase = /[A-Z]/.test(password);
+    this.passwordRequirements.lowercase = /[a-z]/.test(password);
+    this.passwordRequirements.number = /\d/.test(password);
+    this.passwordRequirements.specialChar = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+
+    // Calculando a força da senha com base nos requisitos
+    let strength = 0;
+    
+    if (this.passwordRequirements.length) strength += 20;
+    if (this.passwordRequirements.uppercase) strength += 20;
+    if (this.passwordRequirements.lowercase) strength += 20;
+    if (this.passwordRequirements.number) strength += 20;
+    if (this.passwordRequirements.specialChar) strength += 20;
+
+    this.passwordStrengthPercentage = strength;
+
+    // Determinar a força da senha com base na porcentagem
+    if (strength < 50) {
+      this.passwordStrength = 'Fraca';
+    } else if (strength < 75) {
+      this.passwordStrength = 'Media';
+    } else {
+      this.passwordStrength = 'Forte';
+    }
+
+    this.passwordStrength = this.passwordStrength.toLowerCase();
+  }
+
+  // Função chamada quando a senha é alterada
+  onPasswordChange(): void {
     const password = this.registerForm.get('password')?.value;
-    // Exemplo de uma validação simples (mínimo de 1 letra maiúscula, 1 número e 1 caractere especial)
-    const passwordPattern = /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-    return passwordPattern.test(password);
+    this.calculatePasswordStrength(password);
   }
 
   onSubmit(): void {
     if (this.registerForm.valid && this.validatePassword()) {
-      // Extrai login (username) e password
       const { login, password } = this.registerForm.value;
-      const requestPayload = {
-        username: login,
-        password: password
-      };
+      const requestPayload = { username: login, password: password };
 
       this.apiService.post('auth/register', requestPayload, 'text').subscribe({
         next: (response) => {
@@ -67,4 +104,12 @@ export class RegisterComponent {
       console.log('Formulário inválido');
     }
   }
+
+  // Validação personalizada para a senha
+  validatePassword(): boolean {
+    const password = this.registerForm.get('password')?.value;
+    const passwordPattern = /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    return passwordPattern.test(password);
+  }
 }
+
