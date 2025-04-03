@@ -51,28 +51,26 @@ export class RegisterComponent {
     // Atualizar os requisitos da senha
     this.passwordRequirements.length = password.length >= 8;
     this.passwordRequirements.uppercase = /[A-Z]/.test(password);
-    this.passwordRequirements.lowercase = /[a-z]/.test(password);
     this.passwordRequirements.number = /\d/.test(password);
     this.passwordRequirements.specialChar = /[!@#$%^&*(),.?":{}|<>]/.test(password);
 
     // Calculando a força da senha com base nos requisitos
     let strength = 0;
     
-    if (this.passwordRequirements.length) strength += 20;
-    if (this.passwordRequirements.uppercase) strength += 20;
-    if (this.passwordRequirements.lowercase) strength += 20;
-    if (this.passwordRequirements.number) strength += 20;
-    if (this.passwordRequirements.specialChar) strength += 20;
+    if (this.passwordRequirements.length) strength += 25;
+    if (this.passwordRequirements.uppercase) strength += 25;
+    if (this.passwordRequirements.number) strength += 25;
+    if (this.passwordRequirements.specialChar) strength += 25;
 
     this.passwordStrengthPercentage = strength;
 
     // Determinar a força da senha com base na porcentagem
     if (strength < 50) {
-      this.passwordStrength = 'Fraca';
+      this.passwordStrength = 'Ruim';
     } else if (strength < 75) {
-      this.passwordStrength = 'Media';
-    } else {
       this.passwordStrength = 'Forte';
+    } else {
+      this.passwordStrength = 'Perfeito';
     }
 
     this.passwordStrength = this.passwordStrength.toLowerCase();

@@ -39,6 +39,14 @@ public class AuthenticationController {
 
     @PostMapping("/register")
     public ResponseEntity<String> postMethodRegister(@RequestBody @Valid RegisterDTO data){
+        
+        String validUsername = validateEmail(data.username());
+        
+        if(validUsername == null){
+            System.out.println("Valid username!");
+        } else{
+            return ResponseEntity.badRequest().body("Username is invalid!");
+        }
 
         if(repository.findByUsername(data.username()) != null) return ResponseEntity
         .badRequest().body("Username already taken.");
@@ -90,4 +98,23 @@ public class AuthenticationController {
     
         return null;
     }
+
+    private String validateEmail(String email) {
+        Map<String, String> rules = Map.of(
+            "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$", "a valid email format."
+        );
+
+        if (email == null || email.isEmpty()) {
+            return "Email cannot be empty.";
+        }
+
+        for (var entry : rules.entrySet()) {
+            if (!email.matches(entry.getKey())) {
+                return "Email must match " + entry.getValue();
+            }
+        }
+
+        return null;
+    }
 }
+
