@@ -1,11 +1,9 @@
 [build]
   base = "securetimenotes-frontend/securetimenotes"
   command = "npm install && ng build --configuration=production"
-  publish = "dist/securetimenotes"
+  publish = "dist/securetimenotes/browser"
 
 [[redirects]]
   from = "/*"
-  to = "./browser/index.html"
+  to = "/index.html"
   status = 200
-  force = true
-  
