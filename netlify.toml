@@ -1,5 +1,6 @@
 [build]
-  command = "cd securetimenotes-frontend/securetimenotes && npm install && ng build --configuration=production --base-href /"
+  base = "securetimenotes-frontend/securetimenotes"
+  command = "npm install && ng build --configuration=production --base-href /"
   publish = "../../securetimenotes/browser"
 
 [[redirects]]
