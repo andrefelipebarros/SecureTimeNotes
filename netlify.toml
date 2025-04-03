@@ -7,5 +7,5 @@
   from = "/*"
   to = "./browser/index.html"
   status = 200
-
+  force = true
   
