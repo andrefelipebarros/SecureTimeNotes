@@ -1,5 +1,9 @@
 package securetimenotes.andrefelipebarros.securetimenotes.controllers;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -37,6 +41,9 @@ public class AuthenticationController {
     @Autowired 
     private UserRepository repository;
 
+    @Operation(
+        summary = "Cadastro de usuário", 
+        description = "Realiza o cadastro do usuário com validação de email e senha.")
     @PostMapping("/register")
     public ResponseEntity<String> postMethodRegister(@RequestBody @Valid RegisterDTO data){
         
@@ -67,6 +74,15 @@ public class AuthenticationController {
         return ResponseEntity.ok("User registered successfully.");
     }
 
+    @Operation(
+    summary = "Login de usuário",
+    description = "Realiza a autenticação do usuário e retorna um token JWT.",
+    responses = {
+        @ApiResponse(responseCode = "200", description = "Login bem-sucedido"),
+        @ApiResponse(responseCode = "400", description = "Dados inválidos"),
+        @ApiResponse(responseCode = "401", description = "Não autorizado")
+        }
+    )
     @PostMapping("/login")
     public ResponseEntity<LoginResponseDTO> postMethodLogin(@RequestBody @Valid AuthenticationDTO data) {
         var usernamePassword = new UsernamePasswordAuthenticationToken(data.username(), data.password());
