@@ -66,12 +66,60 @@ Antes de começar, tenha o seguinte instalado:
 Esses endpoints são protegidos por **Spring Security** 🔐 e requerem um token JWT válido para acessar.
 
 ## Diagramas 📊
+Aqui está o **Diagrama de Classes**:
+
+   ```mermaid
+    classDiagram
+        class User {
+            +id : String
+            +username : String
+            +password : String
+            +role : UserRole
+            +notes : List~Note~
+        }
+    
+        class Note {
+            +id : Long
+            +content : String
+            +user : User
+        }
+    
+        class UserRole {
+            <<enum>>
+            ADMIN
+            USER
+        }
+    
+        User "1" --> "*" Note : notes
+        Note "*" --> "1" User : user
+        User --> UserRole : role
+   ```
 
 Aqui está o diagrama do **SchemaDB** para ilustrar a estrutura do banco de dados:
 
-![SchemaDB](assets/diagramDB.png)
-
-
+```mermaid
+    erDiagram
+        USERS {
+            STRING id PK
+            STRING username
+            STRING password
+            STRING role
+        }
+    
+        NOTES {
+            INT id PK
+            STRING content
+            STRING user_id FK
+        }
+    
+        USERROLE {
+            STRING role PK
+        }
+    
+        USERS ||--o{ NOTES : has
+        NOTES }o--|| USERS : belongs_to
+        USERS }o--|| USERROLE : role_is
+```
 ## Contribuindo 🤝
 
 1. Faça um fork deste repositório 🍴.
