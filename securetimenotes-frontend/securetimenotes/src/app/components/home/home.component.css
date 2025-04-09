@@ -1,9 +1,9 @@
 .home-container {
     text-align: center;
-    max-width: 400px;
+    max-width: 900px;
     margin: 50px auto;
     padding: 20px;
-    margin-top: 200px;
+    margin-top: 190px;
     border-radius: 10px;
     background-color: #f9f9f9;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -17,7 +17,7 @@ h2 {
 }
 
 h2::after {
-    content: "Notes";
+    content: " Notes";
     color: #00aeff;
     font-weight: bold;
 }
@@ -43,4 +43,113 @@ button:hover {
 p {
     font-size: 16px;
     color: #555;
+}
+
+/* Modal */
+.modal {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    margin-top: 20px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.modal input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+}
+
+/* Área de nota */
+.note-form textarea {
+    width: 100%;
+    height: 300px;
+    padding: 15px;
+    margin-top: 10px;
+    border-radius: 5px;
+    resize: vertical;
+    font-size: 18px;
+    border: 1px solid #ccc;
+}
+
+/* Container que agrupa o cartão de criação e os cartões de nota */
+.notes-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding: 10px;
+}
+
+/* Cartão de criação minimalista */
+.create-document {
+    width: 100px;
+    height: 120px;
+    border: 1px solid #007bff; /* Borda azul */
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.3s;
+    background-color: #eef;
+}
+
+.create-document:hover {
+    background-color: #dde;
+}
+
+.plus-symbol {
+    font-size: 48px;
+    color: #007bff;
+}
+
+/* Cartão de nota com altura igual ao cartão de criação */
+.note-card {
+    width: 100px;
+    height: 100px; /* Altura igual ao create-document */
+    padding: 10px;
+    border: 1px solid #007bff; /* Borda azul */
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.3s;
+    background-color: #eef;
+}
+
+.note-card:hover {
+    background-color: #dde;
+}
+
+.note-card .note-icon {
+    font-size: 24px;
+}
+
+.note-card .note-title {
+    margin-top: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+/* Responsivo */
+@media (max-width: 600px) {
+    .notes-container {
+    justify-content: center;
+    }
+
+    .note-card,
+    .create-document {
+        width: 100%;
+    }
+
+    .note-form textarea {
+        height: 200px;
+    }
 }
