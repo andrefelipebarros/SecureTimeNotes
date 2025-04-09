@@ -18,4 +18,4 @@ EXPOSE 8081
 COPY --from=build /app/target/*.jar app.jar
 
 # Adicionando limite de memória no comando para plano free Railway
-ENTRYPOINT ["java", "-Xmx256m", "-Xss512k", "-jar", "app.jar"]
+ENTRYPOINT [ "java", "-jar", "app.jar" ]
