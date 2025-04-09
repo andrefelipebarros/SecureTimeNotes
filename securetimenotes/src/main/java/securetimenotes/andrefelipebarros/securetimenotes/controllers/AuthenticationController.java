@@ -2,7 +2,7 @@ package securetimenotes.andrefelipebarros.securetimenotes.controllers;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
-
+import io.swagger.v3.oas.annotations.tags.Tag;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -30,6 +30,7 @@ import securetimenotes.andrefelipebarros.securetimenotes.repository.UserReposito
 
 @RestController
 @RequestMapping("auth")
+@Tag(name = "Authentificação do Usuário", description = "Endpoints para criar autentificação do usuário.")
 @CrossOrigin(origins = "*")
 public class AuthenticationController {
     @Autowired
