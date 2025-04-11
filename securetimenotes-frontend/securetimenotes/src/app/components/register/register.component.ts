@@ -17,6 +17,7 @@ export class RegisterComponent {
   registerForm: FormGroup;
   passwordStrength: string = '';  // Armazenar o estado da força da senha
   passwordStrengthPercentage: number = 0;  // Armazenar a porcentagem da força da senha
+  registrationError: string | null = null;
 
   // Armazenar o status dos requisitos de senha
   passwordRequirements = {
@@ -90,10 +91,12 @@ export class RegisterComponent {
       this.apiService.post('auth/register', requestPayload, 'text').subscribe({
         next: (response) => {
           console.log('Usuário registrado com sucesso', response);
+          this.registrationError = null;
           this.router.navigate(['/login']);
         },
         error: (error) => {
           console.error('Erro ao registrar usuário', error);
+          this.registrationError = 'Erro ao registrar. Tente novamente.';
         }
       });
     } else if (!this.validatePassword()) {

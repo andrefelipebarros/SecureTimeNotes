@@ -10,7 +10,7 @@
     <ng-template #loggedInTemplate>
         <!-- Header e Logout (apenas quando não estiver criando/editando) -->
         <div *ngIf="!showTitlePrompt && !showNoteEditor" class="header-info">
-        <button (click)="logout()">Logout</button>
+        <button class="button-logout" (click)="logout()"><h1>Logout</h1></button>
         </div>
 
         <!-- Modal para o título da nota -->
@@ -18,6 +18,7 @@
         <h3>Digite o título da nota</h3>
         <input type="text" [(ngModel)]="newNoteTitle" placeholder="Título da nota" />
         <button (click)="confirmTitle()">Continuar</button>
+        <button (click)="cancelEdit()">Cancelar</button>
         </div>
 
         <!-- Editor da nota -->
@@ -30,19 +31,22 @@
         <button (click)="cancelEdit()">Cancelar</button>
         </div>
 
-        <!-- Container com o cartão de criação e os cartões de nota -->
-        <div class="notes-container" *ngIf="!showTitlePrompt && !showNoteEditor">
-        <!-- Cartão de criação minimalista (só o "+") -->
-        <div class="create-document" (click)="openNoteTitlePrompt()">
-            <span class="plus-symbol">+</span>
+        <div class="notes-container-plus" *ngIf="!showTitlePrompt && !showNoteEditor">
+            <!-- Cartão de criação minimalista (só o "+") -->
+            <div class="create-document" (click)="openNoteTitlePrompt()">
+                <span class="plus-symbol">+</span>
+            </div>
         </div>
 
-        <!-- Cartões de nota existentes -->
-        <div class="note-card" *ngFor="let note of notes" (click)="editNote(note)">
-            <div class="note-icon">📄</div>
-            <!-- Limita o título aos primeiros 15 caracteres -->
-            <div class="note-title">{{ note.title | slice:0:9 }}</div>
+        <!-- Container com o cartão de criação e os cartões de nota -->
+        <div class="notes-container" *ngIf="!showTitlePrompt && !showNoteEditor">
+            <!-- Cartões de nota existentes -->
+            <div class="note-card" *ngFor="let note of notes" (click)="editNote(note)">
+                <div class="note-icon">📝</div>
+                <!-- Limita o título aos primeiros 15 caracteres -->
+                <div class="note-title">{{ note.title | slice:0:13 }}</div>
+            </div>
         </div>
-        </div>
+        
     </ng-template>
 </div>

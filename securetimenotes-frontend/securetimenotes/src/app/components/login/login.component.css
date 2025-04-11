@@ -70,3 +70,10 @@ h2 {
     font-size: 0.8em;
     margin-top: 5px;
 }
+
+.error-message {
+    color: #ff4d4d;
+    font-weight: bold;
+    margin-top: 10px;
+  }
+  

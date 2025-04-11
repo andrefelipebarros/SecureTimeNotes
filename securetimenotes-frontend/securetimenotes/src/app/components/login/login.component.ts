@@ -14,6 +14,7 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent {
   loginForm: FormGroup;
+  loginError: string | null = null;
 
   constructor(private fb: FormBuilder, private apiService: AuthService, private router: Router) {
     this.loginForm = this.fb.group({
@@ -34,11 +35,13 @@ export class LoginComponent {
       this.apiService.post('auth/login', requestPayload).subscribe({
         next: (response: any) => {
           console.log('Login bem-sucedido', response);
+          this.loginError = null;
           localStorage.setItem('token', response.token); // Armazena o token no localStorage
           this.router.navigate(['/home']);
         },
         error: (error) => {
           console.error('Erro ao fazer login', error);
+          this.loginError = 'Usuário ou senha inválidos';
         }
       });
     } else {

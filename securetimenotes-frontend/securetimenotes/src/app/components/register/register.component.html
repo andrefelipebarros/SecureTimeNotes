@@ -2,6 +2,9 @@
     <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
     <div>
         <h2>REGISTER</h2>
+        <div *ngIf="registrationError" class="error-message">
+            {{ registrationError }}
+        </div>
         <label for="login">E-mail</label>
         <input id="login" formControlName="login" type="email" />
         <div *ngIf="registerForm.get('login')?.invalid && registerForm.get('login')?.touched">
