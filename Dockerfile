@@ -16,6 +16,9 @@ RUN mvn -B clean package -DskipTests
 # Stage de runtime — usar Temurin (JRE) para imagem menor
 FROM eclipse-temurin:17-jre-jammy
 
+WORKDIR /app
+COPY --from=builder /app/target/*.jar ./app.jar
+
 EXPOSE 8081
 
 # copia o jar construído do stage 'builder'
