@@ -1,21 +1,25 @@
-FROM ubuntu:latest AS build
+# Stage de build — já vem com Maven + Temurin 17
+FROM maven:3.9-eclipse-temurin-17 AS builder
 
-RUN apt-get update
-RUN apt-get install openjdk-17-jdk -y
-
-COPY ./securetimenotes /app
-
-RUN apt-get install maven -y
-
+# melhor trabalhar dentro de /app
 WORKDIR /app
 
-RUN mvn clean install -DskipTests
+# copia apenas o pom primeiro para cache de dependências (opcional)
+COPY securetimenotes/pom.xml ./
 
-FROM openjdk:17-jdk-slim
+# copia o resto do código
+COPY securetimenotes/ ./ 
+
+# build da aplicação (skip tests se desejar)
+RUN mvn -B clean package -DskipTests
+
+# Stage de runtime — usar Temurin (JRE) para imagem menor
+FROM eclipse-temurin:17-jre-jammy
 
 EXPOSE 8081
 
-COPY --from=build /app/target/*.jar app.jar
+# copia o jar construído do stage 'builder'
+COPY --from=builder /app/target/*.jar /app/app.jar
 
 # Adicionando limite de memória no comando para plano free Railway
 ENTRYPOINT [ "java", "-XX:-UseContainerSupport", "-jar", "app.jar" ]
