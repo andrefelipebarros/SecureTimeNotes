@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import securetimenotes.andrefelipebarros.securetimenotes.model.user.User;
 import securetimenotes.andrefelipebarros.securetimenotes.model.user.UserRole;
 import securetimenotes.andrefelipebarros.securetimenotes.model.user.body.AuthenticationDTO;
@@ -33,14 +32,16 @@ import securetimenotes.andrefelipebarros.securetimenotes.repository.UserReposito
 @Tag(name = "Authentificação do Usuário", description = "Endpoints para criar autentificação do usuário.")
 @CrossOrigin(origins = "*")
 public class AuthenticationController {
-    @Autowired
-    private AuthenticationManager authenticationManager;
+    
+    private final AuthenticationManager authenticationManager;
+    private final TokenService tokenService;
+    private final UserRepository userRepository;
 
-    @Autowired
-    private TokenService tokenService;
-
-    @Autowired 
-    private UserRepository repository;
+    public AuthenticationController(AuthenticationManager authenticationManager, TokenService tokenService, UserRepository userRepository){
+        this.authenticationManager = authenticationManager;
+        this.tokenService = tokenService;
+        this.userRepository = userRepository;
+    }
 
     @Operation(
         summary = "Cadastro de usuário", 
@@ -56,7 +57,7 @@ public class AuthenticationController {
             return ResponseEntity.badRequest().body("Username is invalid!");
         }
 
-        if(repository.findByUsername(data.username()) != null) return ResponseEntity
+        if(userRepository.findByUsername(data.username()) != null) return ResponseEntity
         .badRequest().body("Username already taken.");
 
         String validPass = validatePassword(data.password());
@@ -71,7 +72,7 @@ public class AuthenticationController {
         UserRole role = (data.role() == null) ? UserRole.USER : data.role();
 
         User newUser = new User(data.username(), encryptedPassword, role);
-        this.repository.save(newUser);
+        this.userRepository.save(newUser);
         return ResponseEntity.ok("User registered successfully.");
     }
 
